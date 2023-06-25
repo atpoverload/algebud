@@ -115,8 +115,27 @@ public class TokenizerTest {
     } catch (IllegalArgumentException iae) {
       assertEquals(
           iae.getMessage(),
-          "unable to parse expressions of the form '.../ -(...'('. consider moving the"
+          "unable to parse expressions of the form '... X / -(...'. consider moving the"
               + " negative sign above the divider");
+    } catch (Exception e) {
+      throw new RuntimeException(
+          String.format(
+              "expected '%s' to fail with an IllegalArgumentException but got %s",
+              expression, e.getClass().getSimpleName()));
+    }
+  }
+
+  @Test
+  public void negation5_failure() {
+    String expression = "A ^ -(B + C)";
+    try {
+      tokenize(expression);
+      throw new RuntimeException(String.format("expected '%s' to fail tokenization", expression));
+    } catch (IllegalArgumentException iae) {
+      assertEquals(
+          iae.getMessage(),
+          "unable to parse expressions of the form '... X ^ -(...'. consider enclosing"
+              + " the expression in parentheses");
     } catch (Exception e) {
       throw new RuntimeException(
           String.format(

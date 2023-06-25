@@ -12,7 +12,7 @@ import java.util.Map;
 
 /** Command-line tool to run the {@link Tokenizer} and {@Evaluator} on a user-provided sequence. */
 // TODO(timur): we should probably use a logger
-public class AlgebudCLI {
+final class AlgebudCLI {
   /** Parses two kinds of variables from the system properties:
    *  -> -Dalgebud.variable.A=1 -Dalgebud.variable.B=1
    *  -> -Dalgebud.variables=A:1,B:1,...

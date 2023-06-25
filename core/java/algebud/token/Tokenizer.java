@@ -44,6 +44,7 @@ public final class Tokenizer {
    */
   // TODO(timur): this should perform validation so that bad tokens are reported
   // TODO(timur): it would be nice to include a snippet of where tokenization failed
+  // TODO(timur): maybe we should just make it postfix here instead of doing two passes
   public static ArrayList<Token> tokenize(String expression) {
     ArrayList<Token> tokens = new ArrayList<>();
     Optional<String> variable = Optional.empty();
@@ -69,13 +70,20 @@ public final class Tokenizer {
                     "bad sequence for '%s' and '%s'", tokens.get(tokens.size() - 1), token));
           }
         case '(':
-          // TODO(timur): this will fail for the sequence '.../ -(...'. we could move the negative
+          // TODO(timur): this will fail for the sequence '...X / -(...' and . we could move the
+          // negative
           // above the divider automatically, but we may have to check preceeding tokens
+          // TODO(timur): this will fail for the sequence '...X ^ -(...' and . we could wrap the
+          // body in parens, but we have to catch the right paren
           if (variable.orElse("").equals("-")) {
             if (tokens.get(tokens.size() - 1).equals(Operation.DIVIDE)) {
               throw new IllegalArgumentException(
-                  "unable to parse expressions of the form '... C / -(...'. consider moving the"
+                  "unable to parse expressions of the form '... X / -(...'. consider moving the"
                       + " negative sign above the divider");
+            } else if (tokens.get(tokens.size() - 1).equals(Operation.EXPONENTIATE)) {
+              throw new IllegalArgumentException(
+                  "unable to parse expressions of the form '... X ^ -(...'. consider enclosing"
+                      + " the expression in parentheses");
             }
             // push -1 * infront of the parens
             // TODO(timur): does this add unnecessary work?
