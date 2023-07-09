@@ -57,5 +57,23 @@ java -Dalgebud.variable.A=1 -Dalgebud.variables=B:2,C:1 -jar //bazel-bin/core/ja
 (-B + (B^2 + 4*A*C)) / (2*C) where [A=1, B=2, C=1] = -1
 ```
 
-<!-- Install protoc: https://grpc.io/docs/protoc-installation -->
-<!-- https://github.com/bazelbuild/rules_go/blob/0.19.0/go/workspace.rst#proto-dependencies -->
+## GRPC Service
+
+`algebud` has a small [grpc](https://grpc.io) service that mimics the cli's behavior. You can start the service in a terminal (or send it to the background):
+
+```
+bazel run //service/java/algebud/service:server
+```
+
+and then run the client as normal
+
+```
+bazel run //service/java/algebud/service:client --jvmopt="-Dalgebud.variables=A:1,B:2,C:1" "(-B + (B^2 + 4*A*C)) / (2*C)"
+```
+
+There is also a root finder for quadratics included:
+
+```
+bazel run //service/java/algebud/service:root_finder 1 2 1 // A B C
+the roots for x^2 + 2*x + 1 are -1.00 and -1.00
+```

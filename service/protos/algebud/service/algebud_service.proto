@@ -1,0 +1,32 @@
+syntax = "proto3";
+
+package algebud.service;
+
+import "service/protos/algebud/service/algebud.proto";
+
+option java_multiple_files = true;
+option java_package = "algebud.service";
+
+message CompileRequest {
+    Expression expression = 1;
+}
+
+message CompileResult {
+    string expression_id = 1;
+}
+
+message ComputeRequest {
+    string expression_id = 1;
+    
+    repeated Variable variable = 2;
+}
+
+message ComputeResult {
+    double result = 1;
+}
+
+service AlgebudService {
+    rpc Compile(CompileRequest) returns (CompileResult) {}
+
+    rpc Compute(ComputeRequest) returns (ComputeResult) {}
+}

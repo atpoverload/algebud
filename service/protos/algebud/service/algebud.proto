@@ -1,0 +1,16 @@
+syntax = "proto3";
+
+package algebud.service;
+
+option java_multiple_files = true;
+option java_package = "algebud.service";
+
+message Expression {
+    repeated string token = 1;
+}
+
+// TODO(timur): we can generalize value types once we do it for the tokens
+message Variable {
+    string name = 1;
+    double value = 2;
+}
