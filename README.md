@@ -68,7 +68,7 @@ bazel run //service/java/algebud/service:server
 and then run the client as normal
 
 ```
-bazel run //service/java/algebud/service:client --jvmopt="-Dalgebud.variables=A:1,B:2,C:1" "(-B + (B^2 + 4*A*C)) / (2*C)"
+bazel run //service/java/algebud/service:client --jvmopt="-Dalgebud.variables=A:1,B:2,C:1" "(-B + (B^2 + 4*A*C)^0.5) / (2*C)"
 ```
 
 There is also a root finder for quadratics included:
