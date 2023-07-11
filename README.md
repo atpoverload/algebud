@@ -9,7 +9,7 @@ This is the build instructions for ubuntu/debian/`apt` systems. For other platfo
 ## Install Dependencies
 
  - Install bazel: https://bazel.build/install/ubuntu
- - Install java: `apt-get install openjdk-9-jdk`
+ - Install java: `apt-get install openjdk-11-jdk`
 
 Any version of Java 11 or higher should work.
 
