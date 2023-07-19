@@ -81,6 +81,11 @@ public final class Evaluator {
         buffer[cursor++] = retrieveValue(token, variables);
       }
     }
+    if (cursor != 1) {
+      throw new IllegalStateException(
+          String.format(
+              "evaluation of the expression %s did not reduce to a single value", postfixTokens));
+    }
     return buffer[0];
   }
 }

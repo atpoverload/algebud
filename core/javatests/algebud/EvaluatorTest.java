@@ -5,7 +5,9 @@ import static algebud.token.Tokenizer.toPostfix;
 import static algebud.token.Tokenizer.tokenize;
 import static org.junit.Assert.assertEquals;
 
+import algebud.token.Token;
 import algebud.token.Variable;
+import java.util.List;
 import java.util.Map;
 import org.junit.Test;
 
@@ -83,5 +85,24 @@ public class EvaluatorTest {
         (-B + Math.pow(Math.pow(B, 2) - 4 * A * C, 0.5)) / (2 * C),
         evaluate(toPostfix(tokenize("(-B + (B^2 - 4*A*C)^0.5) / (2*C)")), COEFFICIENTS),
         0);
+  }
+
+  @Test
+  public void badExpression_failure() {
+    List<Token> expression = List.of(Variable.of("A"), Variable.of("B"));
+    try {
+      evaluate(expression, COEFFICIENTS);
+      throw new RuntimeException(String.format("expected '%s' to fail evaluation", expression));
+    } catch (IllegalStateException e) {
+      assertEquals(
+          e.getMessage(),
+          String.format(
+              "evaluation of the expression %s did not reduce to a single value", expression));
+    } catch (Exception ex) {
+      throw new RuntimeException(
+          String.format(
+              "expected '%s' to fail with an IllegalStateException but got %s",
+              expression, ex.getClass().getSimpleName()));
+    }
   }
 }
