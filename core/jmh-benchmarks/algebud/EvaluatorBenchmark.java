@@ -20,12 +20,12 @@ import org.openjdk.jmh.runner.options.OptionsBuilder;
  * Benchmark                                             Mode  Cnt          Score         Error  Units
  * EvaluatorBenchmark.euclideanDistance                 thrpt   25    5222894.372 ±  187899.856  ops/s
  * EvaluatorBenchmark.euclideanDistanceNative           thrpt   25  216500878.845 ±  830771.037  ops/s
- * EvaluatorBenchmark.euclideanDistanceNativeOptimized  thrpt   25  213836385.313 ± 2147726.721  ops/s
- * EvaluatorBenchmark.euclideanDistanceOptimized        thrpt   25    3172408.584 ±   87259.703  ops/s
+ * EvaluatorBenchmark.euclideanDistanceNative2          thrpt   25  213836385.313 ± 2147726.721  ops/s
+ * EvaluatorBenchmark.euclideanDistance2                thrpt   25    3172408.584 ±   87259.703  ops/s
  * EvaluatorBenchmark.quadraticFormula                  thrpt   25    5203744.156 ±  230679.066  ops/s
  * EvaluatorBenchmark.quadraticFormulaNative            thrpt   25  213843681.711 ± 1144579.348  ops/s
- * EvaluatorBenchmark.quadraticFormulaNativeOptimized   thrpt   25  215386036.392 ±  699907.468  ops/s
- * EvaluatorBenchmark.quadraticFormulaOptimized         thrpt   25    5083875.371 ±  121673.598  ops/s
+ * EvaluatorBenchmark.quadraticFormulaNative2           thrpt   25  215386036.392 ±  699907.468  ops/s
+ * EvaluatorBenchmark.quadraticFormula2                 thrpt   25    5083875.371 ±  121673.598  ops/s
  */
 public class EvaluatorBenchmark {
   private static final double X_0 = 0;
@@ -68,12 +68,12 @@ public class EvaluatorBenchmark {
   }
 
   @Benchmark
-  public void euclideanDistanceOptimized(Blackhole blackhole) {
+  public void euclideanDistance2(Blackhole blackhole) {
     blackhole.consume(Evaluator.evaluate(EUCLIDEAN_DISTANCE_OPTIMIZED, POINTS));
   }
 
   @Benchmark
-  public void quadraticFormulaOptimized(Blackhole blackhole) {
+  public void quadraticFormula2(Blackhole blackhole) {
     blackhole.consume(Evaluator.evaluate(QUADRATIC_FORMULA_OPTIMIZED, COEFFICIENTS));
   }
 
@@ -88,12 +88,12 @@ public class EvaluatorBenchmark {
   }
 
   @Benchmark
-  public void euclideanDistanceNativeOptimized(Blackhole blackhole) {
+  public void euclideanDistanceNative2(Blackhole blackhole) {
     blackhole.consume(Math.sqrt((X_1 - X_0) * (X_1 - X_0) + (Y_1 - Y_0) * (Y_1 - Y_0)));
   }
 
   @Benchmark
-  public void quadraticFormulaNativeOptimized(Blackhole blackhole) {
+  public void quadraticFormulaNative2(Blackhole blackhole) {
     blackhole.consume((-B + Math.sqrt(B * B - 4 * A * C)) / (2 * C));
   }
 

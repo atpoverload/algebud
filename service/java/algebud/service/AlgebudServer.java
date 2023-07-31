@@ -52,7 +52,7 @@ final class AlgebudServer {
 
     private String compileExpression(Expression expression) {
       // TODO(timur): this is probably insecure
-      String expressionString = String.join("", expression.getTokenList()).replaceAll("\\s+", "");
+      String expressionString = String.join("", expression.getTermList()).replaceAll("\\s+", "");
       synchronized (expressions) {
         if (expressions.containsKey(expressionString)) {
           System.out.println(String.format("already compiled %s", expressionString));

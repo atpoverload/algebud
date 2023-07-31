@@ -20,8 +20,8 @@ final class AlgebudClient {
   // TODO(timur): this isn't validated on the client-side, so error details gets swallowed by grpc
   private static Expression buildExpression(String[] expression) {
     Expression.Builder builder = Expression.newBuilder();
-    for (String token : expression) {
-      builder.addToken(token);
+    for (String term : expression) {
+      builder.addTerm(term);
     }
     return builder.build();
   }
@@ -101,7 +101,7 @@ final class AlgebudClient {
       System.out.println(
           String.format(
               "%s where %s = %f",
-              String.join(" ", expression.getTokenList()),
+              String.join(" ", expression.getTermList()),
               variables.stream().collect(toMap(v -> v.getName(), v -> v.getValue())),
               result));
     } finally {
